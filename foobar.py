@@ -34,7 +34,7 @@ Inputs:
 Output:
     (int) 57'''
 '
-def answer(x)
+def answer(x):
     if x == 1:
         return 8
     else:
