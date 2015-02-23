@@ -32,30 +32,30 @@ Output:
     (string list) ["vi", "abcdefg"]
 '''
 
-def answer(names):
-    
-    dict = { 'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8, 'k': 11, 'j': 10, 'm': 13, 'l': 12, 'o': 15, 'n': 14, 'q': 17, 'p': 16, 's': 19, 'r': 18, 'u': 21, 't': 20, 'w': 23, 'v': 22, 'y': 25, 'x': 24, 'z': 26}
+def answer(names):   
+    dict = {'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8, 'k': 11, 'j': 10, 'm': 13, 'l': 12, 'o': 15, 'n': 14, 'q': 17, 'p': 16, 's': 19, 'r': 18, 'u': 21, 't': 20, 'w': 23, 'v': 22, 'y': 25, 'x': 24, 'z': 26}
     new_dict = {}
     list = []
     new_list = []
-    
+    final_list = []
+
     for name in names:
-        sum = 0.00
+        sum = 0
         
         for letter in name:
             sum += dict[letter]
+        if sum in new_dict:
+            new_dict[sum].append(name)
+        else:
+            new_dict[sum] = [name]
+        if sum not in list:
+            list.append(sum)
+    list = sorted(list, reverse = True)
 
-        str_sum = str(dict[name[0]]) #+ str(dict[name[1]]) #+ str(dict[name[2]])  
-        new_dict[sum + (int(str_sum)/1000.0)] = name
-        list.append(sum + (int(str_sum)/(1000.0)))
-
-        
-    list = sorted(list)
-    for items in xrange(len(list)-1, -1, -1):
-        new_list.append(list[items])
-    print new_list
-    
-    for x in xrange(len(new_list)):
-        new_list[x] = new_dict[new_list[x]]
-        
-    return new_list
+    for x in xrange(len(list)):
+        new_list.append(new_dict[list[x]])
+    for y in new_list:
+        y = sorted(y, reverse = True)
+        for x in y:
+         final_list.append(x)
+    return final_list
