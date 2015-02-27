@@ -1,35 +1,28 @@
 '''
-Zombit antidote
-===============
-
-Forget flu season. Zombie rabbits have broken loose and are terrorizing Silicon Valley residents! Luckily, you've managed to steal a zombie antidote and set up a makeshift rabbit rescue station. Anyone who catches a zombie rabbit can schedule a meeting at your station to have it injected with the antidote, turning it back from a zombit to a fluffy bunny. Unfortunately, you have a limited amount of time each day, so you need to maximize these meetings. Every morning, you get a list of requested injection meetings, and you have to decide which to attend fully. If you go to an injection meeting, you will join it exactly at the start of the meeting, and only leave exactly at the end.
-
-Can you optimize your meeting schedule? The world needs your help!
-
-Write a method called answer(meetings) which, given a list of meeting requests, returns the maximum number of non-overlapping meetings that can be scheduled. If the start time of one meeting is the same as the end time of another, they are not considered overlapping.
-
-meetings will be a list of lists. Each element of the meetings list will be a two element list denoting a meeting request. The first element of that list will be the start time and the second element will be the end time of that meeting request.
-
-All the start and end times will be non-negative integers, no larger than 1000000. 
-The start time of a meeting will always be less than the end time.
-
-The number of meetings will be at least 1 and will be no larger than 100.
-The list of meetings will not necessarily be ordered in any particular fashion.
-
+Zombit monitoring
+=================
+The first successfully created zombit specimen, Dolly the Zombit, needs constant monitoring, and Professor Boolean has tasked the minions with it. Any minion who monitors the zombit records the start and end times of their shifts. However, those minions, they are a bit disorganized: there may be times when multiple minions are monitoring the zombit, and times when there are none!
+That's fine, Professor Boolean thinks, one can always hire more minions... Besides, Professor Boolean can at least figure out the total amount of time that Dolly the Zombit was monitored. He has entrusted you, another one of his trusty minions, to do just that. Are you up to the task?
+Write a function answer(intervals) that takes a list of pairs [start, end] and returns the total amount of time that Dolly the Zombit was monitored by at least one minion. Each [start, end] pair represents the times when a minion started and finished monitoring the zombit. All values will be positive integers no greater than 2^30 - 1. You will always have end > start for each interval.
 Languages
 =========
-
 To provide a Python solution, edit solution.py
 To provide a Java solution, edit solution.java
-
-'''
-
-#I wish this worked. This code failed 2 test cases.
+Test cases
+==========
+Inputs:
+    (int) intervals = [[1, 3], [3, 6]]
+Output:
+    (int) 5
+Inputs:
+    (int) intervals = [[10, 14], [4, 18], [19, 20], [19, 20], [13, 20]]
+Output:
+    (int) 16
 '''
 def are_overlapped(list1, list2):
-    if min(list2[1], list1[1]) > max(list1[0], list2[0]):
+    if list1[1] > list2[0]:
         return True
-  
+    return list
 
 
 def merge(list1, list2):
@@ -51,53 +44,14 @@ def condense(list):
             x += 1
             final_list.append(list[y+1])
         y += 1
-    return final_list
+    return final_list 
+    
+def answer(interval):
+    list = condense(interval)
+    total_time = 0
+    for x in list:
+        time = x[1] - x[0]
+        total_time += time
+    return total_time
 
-def answer(meetings):
-    different_meetings = condense(meetings)
-    new_meetings = []
-    for meeting in different_meetings:
-        if meeting[0] != meeting[-1]:
-            new_meetings.append(meeting)
-    return len(new_meetings) 
-'''
-
-#This also failed two test cases
-'''
-def answer(intervals):
-    new = []
-    for meeting in intervals:
-        for x in meeting:
-            new.append(x)
-    count = 1
-    yes = True
-    for meeting in intervals:
-        for element in new:
-            if meeting[0] < element < meeting[1]:
-                yes = False
-        if yes == True:
-            count += 1
-    return count
-'''
-
-
-
-
-#This worked fine
-
-import operator
-
-def answer(meetings):
-    sorted_meetings = sorted(meetings, key=operator.itemgetter(1))
-    final_meetings = []
-    for meeting in sorted_meetings:
-        overlapped = False
-        for sample in final_meetings:
-            if meeting[0] < sample[1] and meeting[1] > sample[0]:
-                    overlapped = True
-        if overlapped == False:
-            final_meetings.append(meeting)
-    return len(final_meetings)
-
-
-
+print answer(interval)
