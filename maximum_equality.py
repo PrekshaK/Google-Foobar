@@ -42,10 +42,10 @@ Output:
 
 def answer(x):
     sum = 0
-	for elements in x:
-	    sum += elements
-	if sum % len(x) == 0:
-	    ans = len(x)
-	else:
-	    ans = len(x) - 1
-	return ans
+    for elements in x:
+    	sum += elements
+    if sum % len(x) == 0:
+    	ans = len(x)
+    else:
+        ans = len(x) - 1
+    return ans
